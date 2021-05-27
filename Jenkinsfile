@@ -4,10 +4,8 @@ pipeline{
         maven 'maven3'
     }
     stages{
-        stage("Git Clone/Pull"){
-            steps{
-                git branch: 'master', credentialsId: 'github-acct', url: 'https://github.com/shaikmoula123/my-app-master'
-            }
+        stage("Git Clone/Pull")
+    
         }
         stage("Maven Build"){
             steps{
