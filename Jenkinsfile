@@ -17,14 +17,14 @@ pipeline{
                     // rename the war file
                     sh "mv target/*war target/myweb.war"
                     // copy war file to tomcat server
-                    sh "scp -o StrictHostKeyChecking=no target/myweb.war ec2-user@172.31.9.170:/opt/tomcat8/webapps"
+                    sh "scp -o StrictHostKeyChecking=no target/myweb.war ec2-user@http://65.2.83.103:/opt/tomcat8/webapps"
                     // stop and start tomcat
-                    sh "ssh ec2-user@172.31.9.170 /opt/tomcat8/bin/shutdown.sh"
-                    sh "ssh ec2-user@172.31.9.170 /opt/tomcat8/bin/startup.sh"
+                    sh "ssh ec2-user@http://65.2.83.103 /opt/tomcat8/bin/shutdown.sh"
+                    sh "ssh ec2-user@http://65.2.83.103:8080 /opt/tomcat8/bin/startup.sh"
                      stage('Upload to Nexus'){
             steps{
                 nexusArtifactUploader artifacts: [
-                        [artifactId: 'multibranch', classifier: '', file: 'multibranch', type: 'war']], 
+                        [artifactId: 'multibranch', classifier: '', file: 'myweb', type: 'war']], 
                     credentialsId: 'nexus3', 
                     groupId: 'devops.shaikmoula', 
                     nexusUrl: 'http://52.66.233.131:8081', 
