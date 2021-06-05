@@ -21,16 +21,17 @@ pipeline{
                     // stop and start tomcat
                     sh "ssh ec2-user@http://65.2.83.103 /opt/tomcat8/bin/shutdown.sh"
                     sh "ssh ec2-user@http://65.2.83.103 /opt/tomcat8/bin/startup.sh"
-                     stage('Upload to Nexus'){
-            steps{
-                nexusArtifactUploader artifacts: [
-                        [artifactId: 'sample pipeline', classifier: '', file: 'myweb', type: 'war']], 
-                    credentialsId: 'nexus3', 
-                    groupId: 'devops.shaikmoula', 
-                    nexusUrl: 'http://52.66.233.131:8081', 
-                    nexusVersion: 'nexus3',protocol: 'http', 
-                    repository: 'shaikmoula-devops-snapshot', 
-                    version: '1.0-SNAPSHOT'
+                     
+                    stage('Upload to Nexus'){
+                             steps{
+                          nexusArtifactUploader artifacts: [
+                        [artifactId: 'sample pipeline', classifier: '', file: 'my-app', type: 'war']], 
+                         credentialsId: 'nexus3', 
+                         groupId: 'devops.shaikmoula', 
+                         nexusUrl: 'http://52.66.233.131:8081', 
+                         nexusVersion: 'nexus3',protocol: 'http', 
+                         repository: 'maven central repository', 
+                         version: '0.0.15-SNAPSHOT'
                 }
             }
         }
